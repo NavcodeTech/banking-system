@@ -49,6 +49,8 @@ import { AccountManagementComponent } from './admin/admin1/dashboard/accountmana
 import { TransactionManagementComponent } from './admin/admin1/dashboard/transaction-management/transaction-management.component';
 import { LoanmanagementComponent } from './admin/admin1/dashboard/loanmanagement/loanmanagement.component';
 import { ForgotComponent } from './forgotPassword/forgot/forgot.component';
+import { VerifyOtpComponent } from './forgotPassword/verify-otp/verify-otp.component';
+import { ChangePasswordComponent } from './forgotPassword/change-password/change-password.component';
 
 const routes: Routes = [
 
@@ -102,7 +104,9 @@ const routes: Routes = [
  { path: 'admin/admin1/dashboard/transactionmanagement', component: TransactionManagementComponent },
  { path: 'admin/admin1/dashboard/loanmanagement', component: LoanmanagementComponent },
 
- { path: 'forgot', component:ForgotComponent}
+ { path: 'forgot', component:ForgotComponent},
+ { path: 'verify_otp', component:VerifyOtpComponent},
+ { path: 'change_password', component:ChangePasswordComponent}
 
 
 ];

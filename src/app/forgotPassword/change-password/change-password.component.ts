@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { ProjectService } from 'src/app/project.service';
 
 @Component({
-  selector: 'app-forgot',
-  templateUrl: './forgot.component.html',
-  styleUrls: ['./forgot.component.css']
+  selector: 'app-change-password',
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.css']
 })
-export class ForgotComponent {
+export class ChangePasswordComponent {
+  
   @Input()
-  email:string='';
+  password:string='';
   submitted!: boolean;
   
   
@@ -18,16 +19,15 @@ export class ForgotComponent {
   }
   errorMsg:string="";
   message:string="";
-  onSendOtp()
+  changePassword()
   {
-    console.log(this.email);
-
-    this.prgService.handleForgot(this.email).subscribe(
+    console.log(this.password);
+    this.prgService.handlePassword(this.password).subscribe(
       response=>
       {
         console.log(response);
         //this.message=response
-        this.router.navigate(['/verify_otp']);
+        this.router.navigate(['/login']);
       },
       error =>
       {

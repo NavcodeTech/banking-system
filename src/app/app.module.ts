@@ -57,6 +57,8 @@ import { TransactionManagementComponent } from './admin/admin1/dashboard/transac
 import { LoanmanagementComponent } from './admin/admin1/dashboard/loanmanagement/loanmanagement.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ForgotComponent } from './forgotPassword/forgot/forgot.component';
+import { VerifyOtpComponent } from './forgotPassword/verify-otp/verify-otp.component';
+import { ChangePasswordComponent } from './forgotPassword/change-password/change-password.component';
 //import { CreditModelComponent } from './model/credit-model/credit-model.component';
 
 @NgModule({
@@ -112,6 +114,8 @@ import { ForgotComponent } from './forgotPassword/forgot/forgot.component';
    TransactionManagementComponent,
    LoanmanagementComponent,
    ForgotComponent,
+   VerifyOtpComponent,
+   ChangePasswordComponent,
   // CreditModelComponent,
 
  ],

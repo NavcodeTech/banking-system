@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 import { User } from "./model/User";
@@ -9,6 +9,7 @@ import { LoanData } from "./model/loan-data";
 import { TransactionModel } from "./model/transaction-model";
 import { catchError, throwError } from "rxjs";
 import { CreditModel } from "./model/credit-model";
+import { CookieService } from "ngx-cookie-service";
 
 
 @Injectable({
@@ -19,7 +20,7 @@ export class ProjectService {
   user:User|null=null;
   
   username1:string='';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private ckService:CookieService) { }
 
   register(user: User): Observable<any> {
     console.log('register called in service ');
@@ -137,5 +138,34 @@ export class ProjectService {
     console.log("user name "+this.username1);
     console.log( JSON.stringify(this.http.get(url)));
     return this.http.get<LoanData[]>(url);
+  }
+  handleForgot(email:string):Observable<string>{
+
+    console.log('forgot  called in service ' + email);
+    const url = `${this.baseUrl}/send_otp`;
+    const headers=new HttpHeaders().set('myemail',email);
+    const data=["myemail",email];
+    this.ckService.set('myemail',email);
+    console.log('url ' + url);
+    //console.log('user ' + JSON.stringify(email));
+    return this.http.get<string>(url,{headers});
+  }
+  handleOtp(otp:string):Observable<string>{
+
+    console.log('otp verify  called in service ' + otp);
+    const url = `${this.baseUrl}/verify_otp`;
+    const headers=new HttpHeaders().set('myotp',otp);
+    console.log('url ' + url);
+    console.log('user ' + JSON.stringify(otp));
+    return this.http.get<string>(url, { headers });
+  }
+  handlePassword(password:string){
+
+    console.log('change password  called in service ' + password);
+    const url = `${this.baseUrl}/change_password`;
+    const headers=new HttpHeaders().set('password',password);
+    console.log('url ' + url);
+    console.log('user ' + JSON.stringify(password));
+    return this.http.get(url, {headers});
   }
 }

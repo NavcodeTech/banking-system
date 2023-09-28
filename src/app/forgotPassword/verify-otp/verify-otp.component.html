@@ -14,20 +14,20 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h4>Forgot Password</h4>
+                        <h4>Verify Otp</h4>
                     </div>
                     <div class="card-body">
-                        <form (ngSubmit)="onSendOtp()" #myForm="ngForm">
+                        <form (ngSubmit)="onVerifyOtp()" #myForm="ngForm">
                             <!-- <div *ngIf="loginErrorMessage" class="text text-danger">
                                 <p>{{loginErrorMessage}}</p>
                             </div> -->
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" [(ngModel)]="email"
-                                    name="email" required placeholder="Enter registered email">
+                                <label for="email">Enter Otp Sent to Mail</label>
+                                <input type="text" class="form-control" id="otp" [(ngModel)]="otp"
+                                    name="otp" required placeholder="Enter OTP">
                             </div>
                             <button type="submit" class="btn btn-primary btn-block"
-                                [disabled]="myForm.invalid">Send Otp</button>
+                                [disabled]="myForm.invalid">Verify Otp</button>
                         </form>
                     </div>
                     <div class="bg-warning test-dark mt-5 mb-5 p-4" [hidden]='!submitted'></div>
@@ -42,5 +42,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
