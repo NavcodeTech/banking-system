@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ForgotComponent {
   email:string='';
-  submitted:boolean=''
+  submitted!: boolean;
   onVerify()
   {
     console.log("email submit",this.email);
