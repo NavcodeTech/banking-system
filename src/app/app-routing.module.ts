@@ -48,6 +48,7 @@ import { UsermanagementComponent } from './admin/admin1/dashboard/usermanagement
 import { AccountManagementComponent } from './admin/admin1/dashboard/accountmanagement/accountmanagement.component';
 import { TransactionManagementComponent } from './admin/admin1/dashboard/transaction-management/transaction-management.component';
 import { LoanmanagementComponent } from './admin/admin1/dashboard/loanmanagement/loanmanagement.component';
+import { ForgotComponent } from './forgotPassword/forgot/forgot.component';
 
 const routes: Routes = [
 
@@ -99,7 +100,9 @@ const routes: Routes = [
 
  { path: 'admin/admin1/dashboard/accountmanagement', component: AccountManagementComponent },
  { path: 'admin/admin1/dashboard/transactionmanagement', component: TransactionManagementComponent },
- { path: 'admin/admin1/dashboard/loanmanagement', component: LoanmanagementComponent }
+ { path: 'admin/admin1/dashboard/loanmanagement', component: LoanmanagementComponent },
+
+ { path: 'forgot', component:ForgotComponent}
 
 
 ];

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.exception.UserAlreadyException;
 import com.example.model.User;
 import com.example.service.UserService;
 
@@ -38,7 +39,7 @@ public class UserController {
             //User createdUser = userService.createUser(user);
 //            return new ResponseEntity<>.status(HttpStatus.CREATED).body("User registered successfully");
             return new ResponseEntity<>(userService.createUser(user),HttpStatus.CREATED);
-        } catch (RuntimeException e) {
+        } catch (UserAlreadyException e) {
             return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }

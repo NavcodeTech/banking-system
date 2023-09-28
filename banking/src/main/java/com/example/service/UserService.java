@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.dao.AccountRepository;
 import com.example.dao.UserRepository;
+import com.example.exception.UserAlreadyException;
 import com.example.model.Account;
 import com.example.model.User;
 import com.example.response.LoginMessage;
 
 @Service
-
 public class UserService {
     
 	@Autowired
@@ -25,11 +25,11 @@ public class UserService {
 //	 @Autowired
 //	    private PasswordEncoder passwordEncoder;
 
-    public User createUser(User user) {
+    public User createUser(User user) throws UserAlreadyException {
     	System.out.println("create user called in service...............");
         // Implement registration logic
     	if (userRepository.findByUsername(user.getUsername()) != null) {
-            throw new RuntimeException("Username already exists");
+            throw new UserAlreadyException("Username already exists");
         }
 
         // Encode the password before saving

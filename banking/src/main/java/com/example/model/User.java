@@ -27,7 +27,7 @@ public class User {
    private  String confirmPassword;
    @JsonIgnore
 
-   @OneToOne(mappedBy ="user",cascade=CascadeType.ALL)
+   @OneToOne(mappedBy ="user",cascade=CascadeType.PERSIST)
    private Account account;
    
 public User(int id, String name, String email, String username, String password, String confirmPassword) {

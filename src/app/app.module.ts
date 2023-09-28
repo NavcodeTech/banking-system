@@ -56,6 +56,7 @@ import { AccountManagementComponent } from './admin/admin1/dashboard/accountmana
 import { TransactionManagementComponent } from './admin/admin1/dashboard/transaction-management/transaction-management.component';
 import { LoanmanagementComponent } from './admin/admin1/dashboard/loanmanagement/loanmanagement.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ForgotComponent } from './forgotPassword/forgot/forgot.component';
 //import { CreditModelComponent } from './model/credit-model/credit-model.component';
 
 @NgModule({
@@ -110,6 +111,7 @@ import { HttpClientModule } from '@angular/common/http';
    AccountManagementComponent,
    TransactionManagementComponent,
    LoanmanagementComponent,
+   ForgotComponent,
   // CreditModelComponent,
 
  ],

@@ -10,10 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,6 +76,33 @@ public class AccountController {
 		Account acc=u.getAccount();
 		return ResponseEntity.ok(acc);
 		}
+	}
+    @PutMapping("/accounts/update/{username}")
+	public ResponseEntity<Account> updateData(@RequestBody Account account,@PathVariable("username") String uname) throws Exception
+	{
+    	System.out.println("update account called");
+        User u=userService.findByUsername(uname);
+        Account acc=u.getAccount();
+        System.out.println("chk"+u);
+        try {
+//        	
+        	System.out.println(account);
+            return new ResponseEntity<>(accountService.updateAccount(account,acc),HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+	}
+    @DeleteMapping("/accounts/delete/{username}")
+	public ResponseEntity<String> updateData(@PathVariable("username") String uname) throws Exception
+	{
+    	try {
+            accountService.deleteAccount(uname);
+            return ResponseEntity.ok("deleted");
+    	}catch(Exception e)
+    	{
+    		return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+    	}
+       
 	}
 	
 

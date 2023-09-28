@@ -34,7 +34,7 @@ public class LoanService {
 
    if (loanRepository.findByloanId(loan.getLoanId()) != null) {
 
-      throw new RuntimeException("Phone no already exists");
+      throw new RuntimeException("loan already exists");
 
     }
 

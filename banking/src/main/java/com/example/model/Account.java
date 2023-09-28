@@ -1,5 +1,8 @@
 package com.example.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -8,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +26,7 @@ public class Account {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int AccId;
+    private int accId;
 	private String name;
 	private String dob;
 	private String accType;
@@ -39,6 +43,9 @@ public class Account {
 	private String occupation;
 	private long annualIncome;
 	
+	private long balance;
+	private int pin;
+	
 	
 //	public String aadhaarImage ; 
 //	
@@ -47,11 +54,25 @@ public class Account {
 //	private String panImage;
 //	
 //	private String profile;
+	
 	@JsonIgnore
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
 	
+//	@OneToMany(mappedBy ="account",cascade=CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<TransactionModel> transaction=new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<CreditModel> trans=new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Loan> loan=new ArrayList<>();
+
 	
 }

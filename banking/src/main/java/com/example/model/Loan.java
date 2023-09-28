@@ -1,9 +1,13 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,12 +26,17 @@ public class Loan {
  private int loanAmount;
  private String loanPurpose;
  private String occupation;
- private int anualIncome;
+ private int annualIncome;
 // private String residenceImage;
 // private String panImage;
 // private String incomeImage;
 // private String signImage;
  private String declaration;
+ 
+ @JsonIgnore
+ @ManyToOne
+ @JoinColumn(name="account_accId")
+ private Account account;
 
 }
 
