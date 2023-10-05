@@ -75,6 +75,9 @@ public class MyConfig {
 		 return http.cors().and().csrf().disable().authorizeHttpRequests().
 					requestMatchers(mvc.pattern("/api/users/register")).permitAll()
 			.requestMatchers(mvc.pattern("/api/users/login")).permitAll()
+			.requestMatchers(mvc.pattern("/api/users/change_password")).permitAll()
+			.requestMatchers(mvc.pattern("/api/users/verify_otp")).permitAll()
+			.requestMatchers(mvc.pattern("/api/users/send_otp")).permitAll()
 			.requestMatchers(mvc.pattern("/api/users/**")).authenticated()
 			.anyRequest().authenticated()
 			.and().sessionManagement()

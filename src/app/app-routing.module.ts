@@ -105,9 +105,9 @@ const routes: Routes = [
  { path: 'admin/admin1/dashboard/transactionmanagement', component: TransactionManagementComponent},
  { path: 'admin/admin1/dashboard/loanmanagement', component: LoanmanagementComponent },
 
- { path: 'forgot', component:ForgotComponent},
- { path: 'verify_otp', component:VerifyOtpComponent},
- { path: 'change_password', component:ChangePasswordComponent}
+ { path: 'forgot', component:ForgotComponent,},
+ { path: 'verify_otp', component:VerifyOtpComponent,},
+ { path: 'change_password', component:ChangePasswordComponent,}
 
 
 ];

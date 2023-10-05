@@ -150,7 +150,7 @@ export class ProjectService {
 
     console.log('forgot  called in service ' + email);
     const url = `${this.baseUrl}/send_otp`;
-    const headers=new HttpHeaders().set('myemail',email);
+    const headers=new HttpHeaders().append('myemail',email);
     const data=["myemail",email];
     this.ckService.set('myemail',email);
     console.log('url ' + url);
@@ -161,7 +161,7 @@ export class ProjectService {
 
     console.log('otp verify  called in service ' + otp);
     const url = `${this.baseUrl}/verify_otp`;
-    const headers=new HttpHeaders().set('myotp',otp);
+    const headers=new HttpHeaders().append('myotp',otp);
     console.log('url ' + url);
     console.log('user ' + JSON.stringify(otp));
     return this.http.get<string>(url, { headers });
@@ -170,9 +170,9 @@ export class ProjectService {
 
     console.log('change password  called in service ' + password);
     const url = `${this.baseUrl}/change_password`;
-    const headers=new HttpHeaders().set('password',password);
+    const sheaders=new HttpHeaders().append('password',password);
     console.log('url ' + url);
     console.log('user ' + JSON.stringify(password));
-    return this.http.get(url, {headers});
+    return this.http.get(url, {headers:sheaders});
   }
 }

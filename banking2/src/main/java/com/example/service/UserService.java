@@ -103,8 +103,9 @@ public class UserService {
 
 	public void changePassword(String password) {
 		User u=userRepository.findByEmail(omap.get("myemail"));
-		u.setPassword(password);
-		u.setConfirmPassword(password);
+		u.setPassword(passwordEncoder.encode(password));
+		u.setConfirmPassword(passwordEncoder.encode(password));
+		System.out.println("user:"+u.getEmail()+"passw:"+password);
 		userRepository.save(u);
 		omap.clear();
 	}
