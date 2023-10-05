@@ -20,6 +20,14 @@ export class LoginServiceService {
     
     
   
+  saveToken(token: string): void {
+    localStorage.setItem('token', token); // Store the token in localStorage
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token'); // Retrieve the token from localStorage
+  }
+
 
   login(requestLogin:LoginUser): Observable<string> {
     const headers=new HttpHeaders(

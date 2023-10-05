@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,8 @@ public class UserService {
     
 	@Autowired
     private UserRepository userRepository;
-	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	private AccountRepository accountRepository;
 	
@@ -45,7 +47,9 @@ public class UserService {
         }
 
         // Encode the password before saving
-       // user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+        user.setRole("ROLE_USER");
 
         return userRepository.save(user);
     }
@@ -78,7 +82,6 @@ public class UserService {
 			
 			javaMailSender.send(mailMessage);
 			return "success";
-			
 		}
 		catch(Exception e)
 		{
@@ -115,10 +118,8 @@ public class UserService {
 					+ "financial service through engaging with us.";
 			mailMessage.setFrom(sender);
 			mailMessage.setSubject("Welcome to Pcunia Banking");
-			
 			mailMessage.setText(body);
 			mailMessage.setTo(email);
-			
 			javaMailSender.send(mailMessage);
 			
 		}

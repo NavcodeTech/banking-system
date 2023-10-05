@@ -25,6 +25,7 @@ public class User {
    private String  username;
    private  String password;
    private  String confirmPassword;
+   private String role;
    @JsonIgnore
 
    @OneToOne(mappedBy ="user",cascade=CascadeType.PERSIST)

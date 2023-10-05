@@ -33,10 +33,13 @@ export class LoginComponent implements OnInit{
      console.log(this.user1.username);
      this.loginData.setUsername(this.user1.username);
      this.loginData.setPassword(this.user1.password);
-     this.loginService.login(this.loginData).subscribe(response=>
+     this.loginService.login(this.loginData).subscribe((response:any)=>
      {
       localStorage.setItem("isLoggedItem","true");
       localStorage.setItem("username",this.loginData.getUserName());
+      console.log(response.message);
+      JSON.stringify(response);
+      this.loginService.saveToken(response.message);
       this.router.navigate(['/home']);
       }, (error: any) =>{
       console.log("An Error occurred ",error);
@@ -49,5 +52,7 @@ export class LoginComponent implements OnInit{
   ngOnInit(){
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("username");
+    localStorage.removeItem('token');
+   
   }
 }

@@ -51,6 +51,7 @@ import { LoanmanagementComponent } from './admin/admin1/dashboard/loanmanagement
 import { ForgotComponent } from './forgotPassword/forgot/forgot.component';
 import { VerifyOtpComponent } from './forgotPassword/verify-otp/verify-otp.component';
 import { ChangePasswordComponent } from './forgotPassword/change-password/change-password.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
 
@@ -60,37 +61,37 @@ const routes: Routes = [
 
  { path: 'register', component: RegisterComponent },
 
- { path: 'home', component: HomeComponent },
+ { path: 'home', component: HomeComponent,canActivate: [AuthGuard] },
 
- { path: 'accounts/update', component: UpdateComponent },
+ { path: 'accounts/update', component: UpdateComponent,canActivate: [AuthGuard] },
 
- { path: 'accounts/createaccount', component: CreateAccountComponent },
+ { path: 'accounts/createaccount', component: CreateAccountComponent,canActivate: [AuthGuard] },
 
-//  { path: 'accounts/delete', component: DeleteComponent },
+//  { path: 'accounts/delete', component: DeleteComponent,canActivate: [AuthGuard] },
 
- { path: 'transaction', component: TransactionComponent },
+ { path: 'transaction', component: TransactionComponent,canActivate: [AuthGuard] },
 
- { path: 'transaction/creditslip', component: CreditSlipComponent },
+ { path: 'transaction/creditslip', component: CreditSlipComponent,canActivate: [AuthGuard] },
 
- { path: 'transaction/creditcheque', component: CreditChequeComponent },
+ { path: 'transaction/creditcheque', component: CreditChequeComponent,canActivate: [AuthGuard] },
 
- { path: 'transaction/debitslip', component: DebitSlipComponent },
+ { path: 'transaction/debitslip', component: DebitSlipComponent,canActivate: [AuthGuard] },
 
- { path: 'transaction/debitcheque', component: DebitChequeComponent },
+ { path: 'transaction/debitcheque', component: DebitChequeComponent,canActivate: [AuthGuard] },
 
- { path: 'loan', component: LoanComponent },
+ { path: 'loan', component: LoanComponent,canActivate: [AuthGuard] },
 
- { path: 'loan/loanrequest', component: LoanRequestComponent },
+ { path: 'loan/loanrequest', component: LoanRequestComponent,canActivate: [AuthGuard] },
 
- { path: 'loan/loandisbursal', component: LoanDisbursalComponent },
+ { path: 'loan/loandisbursal', component: LoanDisbursalComponent,canActivate: [AuthGuard] },
 
- { path: 'passbook', component: PassbookComponent },
+ { path: 'passbook', component: PassbookComponent,canActivate: [AuthGuard] },
 
- { path: 'passbook/transactiondetails', component: TransactionDetailsComponent },
+ { path: 'passbook/transactiondetails', component: TransactionDetailsComponent,canActivate: [AuthGuard] },
 
- { path: 'passbook/accountsummary', component: AccountSummaryComponent },
+ { path: 'passbook/accountsummary', component: AccountSummaryComponent,canActivate: [AuthGuard] },
 
- { path: 'accounts', component: AccountsComponent },
+ { path: 'accounts', component: AccountsComponent,canActivate: [AuthGuard] },
 
  { path: 'admin', component: AdminComponent },
 
@@ -98,10 +99,10 @@ const routes: Routes = [
 
  { path: 'admin/admin1/dashboard', component: DashboardComponent },
 
- { path: 'admin/admin1/dashboard/usermanagement', component: UsermanagementComponent },
+ { path: 'admin/admin1/dashboard/usermanagement', component: UsermanagementComponent},
 
- { path: 'admin/admin1/dashboard/accountmanagement', component: AccountManagementComponent },
- { path: 'admin/admin1/dashboard/transactionmanagement', component: TransactionManagementComponent },
+ { path: 'admin/admin1/dashboard/accountmanagement', component: AccountManagementComponent},
+ { path: 'admin/admin1/dashboard/transactionmanagement', component: TransactionManagementComponent},
  { path: 'admin/admin1/dashboard/loanmanagement', component: LoanmanagementComponent },
 
  { path: 'forgot', component:ForgotComponent},

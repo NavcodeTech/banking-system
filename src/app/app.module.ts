@@ -55,10 +55,11 @@ import { UsermanagementComponent } from './admin/admin1/dashboard/usermanagement
 import { AccountManagementComponent } from './admin/admin1/dashboard/accountmanagement/accountmanagement.component';
 import { TransactionManagementComponent } from './admin/admin1/dashboard/transaction-management/transaction-management.component';
 import { LoanmanagementComponent } from './admin/admin1/dashboard/loanmanagement/loanmanagement.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ForgotComponent } from './forgotPassword/forgot/forgot.component';
 import { VerifyOtpComponent } from './forgotPassword/verify-otp/verify-otp.component';
 import { ChangePasswordComponent } from './forgotPassword/change-password/change-password.component';
+import { AuthInterceptor } from './auth.interceptor';
 //import { CreditModelComponent } from './model/credit-model/credit-model.component';
 
 @NgModule({
@@ -133,6 +134,11 @@ import { ChangePasswordComponent } from './forgotPassword/change-password/change
 
  providers: [
    //  UserServiceService
+   {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+   }
  ],
 
  bootstrap: [AppComponent]

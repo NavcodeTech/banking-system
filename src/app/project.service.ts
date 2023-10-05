@@ -10,6 +10,7 @@ import { TransactionModel } from "./model/transaction-model";
 import { catchError, throwError } from "rxjs";
 import { CreditModel } from "./model/credit-model";
 import { CookieService } from "ngx-cookie-service";
+import { LoginServiceService } from "./service/login-service.service";
 
 
 @Injectable({
@@ -18,9 +19,9 @@ import { CookieService } from "ngx-cookie-service";
 export class ProjectService {
   private baseUrl = 'http://localhost:8085/api/users'; // Update with your backend URL
   user:User|null=null;
-  
   username1:string='';
-  constructor(private http: HttpClient,private ckService:CookieService) { }
+  constructor(private http: HttpClient,private ckService:CookieService,
+    private loginService:LoginServiceService) { }
 
   register(user: User): Observable<any> {
     console.log('register called in service ');
@@ -36,6 +37,7 @@ export class ProjectService {
     console.log(formData);
     return this.http.post(url, formData);
   }
+ 
   createAccount(account: UserAccount): Observable<any> {
 
     console.log('userAccoount  called in service ' + account);
@@ -76,18 +78,23 @@ export class ProjectService {
     return this.http.post(url, (data));
   }
   getAccDetail():Observable<UserAccount>{
-    
+    const token = this.loginService.getToken();
     const  usr=localStorage.getItem("username");
     const url=`${this.baseUrl}/accounts/${usr}`;
     console.log("user name "+this.username1);
     console.log( JSON.stringify(this.http.get(url)));
-    return this.http.get<UserAccount>(url);
+    
+      return this.http.get<UserAccount>(url);
+    
   }
   getUser():Observable<User>{
+    const token = this.loginService.getToken();
     const  usr=localStorage.getItem("username");
     const url=`${this.baseUrl}/${usr}`;
     console.log( JSON.stringify(this.http.get(url)));
-    return this.http.get<User>(url);
+    
+      return this.http.get<User>(url);
+    
   }
   handleCredit(credit1: CreditModel): Observable<string> {
     //console.log('userAccoount  called in service ' + credit1);
@@ -99,7 +106,7 @@ export class ProjectService {
       {
         'Content-Type' : 'application/json'
       });
-    return this.http.post<string>(url, (credit1),{headers:headers})
+    return this.http.post<string>(url, (credit1))
   }
   getTrans():Observable<TransactionModel[]>{
     

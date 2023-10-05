@@ -1,11 +1,20 @@
 package com.example.contrtoller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +26,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.config.CustomUserDetails;
+import com.example.config.UserDetailsServiceImpl;
 import com.example.dao.UserRepository;
 import com.example.exception.UserAlreadyException;
 import com.example.model.User;
+import com.example.service.JwtService;
 import com.example.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,9 +41,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping("/api/users")
 public class UserController {
-	
-	
-	
 	@RequestMapping("/hi")
 	public String hi() {
 		return "hello";
@@ -47,25 +56,43 @@ public class UserController {
         try {
             //User createdUser = userService.createUser(user);
 //            return new ResponseEntity<>.status(HttpStatus.CREATED).body("User registered successfully");
+        	
         	userService.welcomeMail(user.getName(),user.getEmail());
             return new ResponseEntity<>(userService.createUser(user),HttpStatus.CREATED);
         } catch (UserAlreadyException e) {
             return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
-
+    @Autowired BCryptPasswordEncoder passwordEncoder;
+    @Autowired AuthenticationManager authenticationManager;
+    @Autowired JwtService jwtService;
+    
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User u) throws Exception {
-       
-            // You can implement the authentication logic here
-            // For demonstration purposes, we'll assume successful login.
-    	     String uname=u.getUsername();
+    	    String uname=u.getUsername();
     	    System.out.println(uname+" "+u.getPassword());
     	    User user=userService.findByUsername(uname);
         	if(user!=null)
         	{
-        		if(user.getPassword().equals(u.getPassword()))
-                return ResponseEntity.ok().body("{\"status\":\"success\",\"message\":\"Login Successful\"}");
+        		if(passwordEncoder.matches(u.getPassword(), user.getPassword()))
+        		{
+        			Authentication authentication = authenticationManager
+        	    	        .authenticate(new UsernamePasswordAuthenticationToken(u.getUsername(), u.getPassword()));
+
+        	    	    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        	    	    CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+
+
+        	    	    List<String> roles = userDetails.getAuthorities().stream()
+        	    	        .map(item -> item.getAuthority())
+        	    	        .collect(Collectors.toList());
+        	    	    
+        	    	    String token = jwtService.generateToken(u.getUsername());
+        	    	    String message="{\"status\":\"success\",\"message\":\""+token+"\"}";
+                return ResponseEntity.ok().body(message);
+                		
+        		}
         		else
         		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"status\":\"error\",\"message\":\"Wrong password\"}");
         			
